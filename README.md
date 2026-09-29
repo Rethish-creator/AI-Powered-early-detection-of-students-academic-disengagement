@@ -89,7 +89,32 @@ docker-compose up --build
 
 ---
 
-## 6. Ethical AI & Privacy Constitution
+## 6. Deploying to GitHub & CI/CD
+
+### Push to Your Own GitHub Repository
+
+1. **GitHub Repository URL**:
+   `https://github.com/Rethish-creator/AI-Powered-Early-Detection-of-Student-Academic-Disengagement.git`
+
+2. **Push command from your terminal**:
+   ```bash
+   git remote set-url origin https://github.com/Rethish-creator/AI-Powered-Early-Detection-of-Student-Academic-Disengagement.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+---
+
+## 7. Technical Documentation Index
+
+- **[REST API Reference (`docs/API.md`)](./docs/API.md)**: Full specification of all REST endpoints including Auth, Records, SHAP attributions, Voice Assistant, and Gemini Image Studio.
+- **[System Architecture (`docs/ARCHITECTURE.md`)](./docs/ARCHITECTURE.md)**: Detailed breakdown of the multi-tier data flow, hybrid explainability models, and telemetry pipelines.
+- **[Cloud & Docker Deployment Guide (`docs/DEPLOYMENT.md`)](./docs/DEPLOYMENT.md)**: Complete deployment guides for Render, Railway, Google Cloud Run, and Docker Compose.
+- **[Backend Architecture & Python Reference (`backend/README.md`)](./backend/README.md)**: Python / FastAPI microservice specifications and scikit-learn models.
+
+---
+
+## 8. Ethical AI & Privacy Constitution
 
 - **No Punitive Labels**: The system never refers to a student as "disengaged", "lazy", "weak", or "failing". All flags are formally termed **"Engagement Risk Indicator — Faculty Review Required"**.
 - **No Sensitive Demographics**: The model strictly excludes race, religion, gender, financial circumstances, medical history, and mental health data.

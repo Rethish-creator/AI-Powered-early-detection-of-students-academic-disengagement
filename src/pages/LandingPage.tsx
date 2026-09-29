@@ -146,10 +146,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => onNavigate('login')}
+              onClick={() => handleLaunchRole('ADMIN')}
               className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 backdrop-blur-md shadow-lg transition-all text-sm hover:scale-105 active:scale-95"
             >
-              Sign In to Portal
+              <span>Administrator Console</span>
             </button>
           </div>
 

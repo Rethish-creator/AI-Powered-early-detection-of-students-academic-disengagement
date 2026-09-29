@@ -105,3 +105,60 @@ Returns section benchmark comparisons (Section A vs B vs C vs D) and 12-week coh
 
 ### `GET /api/reports/class` & `GET /api/reports/student/:id`
 Generates comprehensive printable and exportable reports.
+
+---
+
+## 6. AI Intelligence & Generation (Gemini 3.1 & 3.8)
+
+### `POST /api/ai/voice-assistant`
+Natural language speech and conversational query engine for faculty and mentors.
+- **Body**:
+  ```json
+  {
+    "query": "Tell me about student S023 and recommend next steps",
+    "studentId": "S023"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "reply": "Student S023, Priya Patel, has an Engagement Risk Indicator of Attention with a score of 68/100...",
+    "source": "gemini-3.8-flash"
+  }
+  ```
+
+### `POST /api/ai/create-image`
+Generates high-resolution academic background imagery using `gemini-3.1-flash-image-preview`.
+- **Body**:
+  ```json
+  {
+    "prompt": "Modern architectural university library with morning sunlight and study desks",
+    "aspectRatio": "16:9"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "imageUrl": "data:image/png;base64,...",
+    "model": "gemini-3.1-flash-image-preview",
+    "prompt": "..."
+  }
+  ```
+
+### `POST /api/ai/edit-image`
+Edits an existing academic background image using text prompts with `gemini-3.1-flash-image-preview`.
+- **Body**:
+  ```json
+  {
+    "prompt": "Add subtle glowing blue neural connections and digital data grid over the scene",
+    "sourceImageBase64": "data:image/png;base64,..."
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "imageUrl": "data:image/png;base64,...",
+    "model": "gemini-3.1-flash-image-preview"
+  }
+  ```
+

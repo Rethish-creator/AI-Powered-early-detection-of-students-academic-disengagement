@@ -21,24 +21,13 @@ import { api } from './services/api.ts';
 
 function AppContent() {
   const { user, loading } = useAuth();
-  const [currentView, setCurrentView] = useState<string>('landing');
+  const [currentView, setCurrentView] = useState<string>('faculty-dashboard');
   const [selectedStudentId, setSelectedStudentId] = useState<string>('S023');
   const [alertCount, setAlertCount] = useState<number>(0);
 
   useEffect(() => {
-    if (!loading && user) {
-      if (currentView === 'landing' || currentView === 'login') {
-        if (user.role === 'STUDENT') {
-          setCurrentView('student-dashboard');
-        } else if (user.role === 'ADMIN') {
-          setCurrentView('admin-dashboard');
-        } else {
-          setCurrentView('faculty-dashboard');
-        }
-      }
-      fetchAlertCount();
-    }
-  }, [user, loading]);
+    fetchAlertCount();
+  }, [user]);
 
   const fetchAlertCount = async () => {
     try {
@@ -51,6 +40,11 @@ function AppContent() {
   const handleNavigate = (view: string, data?: any) => {
     if (view === 'student-detail' && data) {
       setSelectedStudentId(data);
+    }
+    // If login is requested, route directly to the active dashboard
+    if (view === 'login') {
+      setCurrentView(user?.role === 'STUDENT' ? 'student-dashboard' : (user?.role === 'ADMIN' ? 'admin-dashboard' : 'faculty-dashboard'));
+      return;
     }
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,7 +63,7 @@ function AppContent() {
     );
   }
 
-  // Standalone pages without the sidebar
+  // Standalone landing page if explicitly visited via link
   if (currentView === 'landing') {
     return (
       <div className="min-h-screen flex flex-col font-sans">
@@ -79,17 +73,8 @@ function AppContent() {
     );
   }
 
-  if (currentView === 'login' || !user) {
-    return (
-      <div className="min-h-screen flex flex-col font-sans">
-        <Navbar currentView={currentView} onNavigate={handleNavigate} />
-        <LoginPage onNavigate={handleNavigate} />
-      </div>
-    );
-  }
-
   // Student portal layout (clean full-width layout without faculty sidebar)
-  if (user.role === 'STUDENT') {
+  if (user?.role === 'STUDENT') {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
         <Navbar currentView={currentView} onNavigate={handleNavigate} />
@@ -106,7 +91,7 @@ function AppContent() {
     );
   }
 
-  // Faculty and Admin application layout with collapsible sidebar
+  // Faculty and Admin application layout with collapsible sidebar (Direct open, NO login wall)
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar currentView={currentView} onNavigate={handleNavigate} />
