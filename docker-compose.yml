@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: edusignal_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: student_engagement_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: edusignal_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:postgrespassword@database:5432/student_engagement_db
+      JWT_SECRET: supersecretjwtkey2025
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: edusignal_app
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:

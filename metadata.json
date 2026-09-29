@@ -1,0 +1,6 @@
+{
+  "name": "AI-Powered Early Detection of Student Academic Disengagement",
+  "description": "An explainable AI-powered academic engagement monitoring platform identifying early negative trends in attendance, assignments, and learning indicators for timely faculty review.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
